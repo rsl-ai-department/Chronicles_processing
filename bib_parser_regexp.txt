@@ -1,0 +1,65 @@
+# Here are the regular expressions we use to detect some info inside the bibliographic records.
+# (c) Russian State Library, 2024
+# (c) Artemiy Danovskiy, danovskyaa@rsl.ru, 2024
+# (copyleft) Use it as you wish with or without any mentions.
+
+# 1. The Book Chamber registration number. Examples: "65-123"; "79-24215а". The first part is the year, the second one is the order number. It can have a letter in cyrillic: "а" (dissertation thesis), "ж" (journals and magazines) etc.
+
+regexp_regnum = /\D[4-8]{1}[0-9]{1}-\d{4,6}[а-я|a-z]*/
+
+# 2. UDC code. It doesn't work good because of complicity and variety of the UDC structure. It matches with some numbers with dot delimeter, for example, "50.000".
+
+regexp_udc = /\d{1,3}(?:\.\d{1,3})+/
+
+# 3. The year. It matches with any 4 digits inside the slashes (obliques). Example: "/1959/"
+
+regexp_filepath_year = /\/\d{4}\//
+
+# 4. The print size. It matches with any 1-4 numbers and sentimeters abbreviation then after the space. Example: "22 см". Note: it is cyrillic letters.
+
+regexp_print_size = /\d{1,4}\sсм\./
+
+# 5. The number of pages. It matches with any 1-4 numbers and page abbreviation then after space. Example: "100 с.". Note: it is cyrillic "с".
+
+regexp_page_size = /\d{1,4}\sс\./
+
+# 6. The binding info. It matches with abbreviation of the binding in Russian. Example: "В пер.". Note: it is cyrillic letters.
+
+regexp_vper = / В пер./
+
+# 7. Book Chronicle order number. It is specified for our source file mark-up and matches with any digits after "->" consequence with the dot after. Example: "-> 24."
+
+regexp_num = /->\s*\d*\-*\d*\./ # Порядковый номер биб. записи в файле формата new_df (----> 123.)
+
+# 8. Book Chronicle order number, improved. Prefer to use it. It checks the first letter of the record also to reject some errors of the recognition etc.
+
+regexp_num_mighty = /->\s*\d*\-*\d*\.\s*[A-ZА-Я1-9«]/
+
+# 9. Any number. It matches all the numbers in any consequence.
+
+regexp_any_number = /\d+/
+
+# 10. The dissertation thesis. It is identified by cyrillic "а" on the registration number's end. So it matches "а" after digits and could be used inside this number (see #1).
+
+regexp_autoref = /\d{3,6}a|а/
+
+# 11. Path to file. Matches paths to jpg files in /work.
+
+regexp_path = /\/work\/[^,;]*\.jpg/
+
+# 12. Additional issue. Matches "доп" ("addition") in cyrillic. Must be used inside the paths.
+
+regexp_dopvyp = /доп/
+
+# 13. Language. Matches with the common mention of the publication language. Example: "на узб. яз.". Note: it's cyrillic.
+
+regexp_lang = /На\s+[а-я]+\.\s*яз\./
+
+# 14. Print type. It can be primary ("п") or operative ("оп"). Note: it's cyrillic.
+
+regexp_pervich = (/\sп\s/)
+regexp_operpech = (/\sоп\s/)
+
+#15. Image. Matches with .jpg extension. Must be used inside the paths.
+
+regexp_img = /\.jpg/
