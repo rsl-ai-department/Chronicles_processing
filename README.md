@@ -46,7 +46,6 @@ To cluster bibliographic records, look at:
 To detect individual text blocks, look at:
 2block_split_yandex.ipynb
 3block_split_filtration.ipynb
-<!-- --input data/bibliographic_records.csv --output data/entries.csv -->
 
 ### Data Creation
 To create data with bibliographic records, look at:
